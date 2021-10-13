@@ -1,6 +1,6 @@
 {
   "name": "@terra-money/msg-reader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert common terra.js msg to a sentence",
   "main": "dist/index.js",
   "author": "Terra <engineering@terra.money>",
