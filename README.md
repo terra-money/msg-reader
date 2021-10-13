@@ -1,4 +1,4 @@
-# msg-reader
+# @terra-money/msg-reader
 Convert common terra.js msg to a sentence
 
 ## Installation
