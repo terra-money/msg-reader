@@ -4,7 +4,7 @@ Convert common terra.js msg to a sentence
 ## Installation
 
 ```
-npm i @terra-money/msg-parser
+npm i @terra-money/msg-reader
 ```
 
 ## Example codes
