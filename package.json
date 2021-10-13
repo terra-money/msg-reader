@@ -16,8 +16,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@terra-money/terra.js": "^2.0.14",
-    "bignumber.js": "^9.0.1"
+    "@terra-money/terra.js": "^2.0.14"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

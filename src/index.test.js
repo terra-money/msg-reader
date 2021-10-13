@@ -23,14 +23,14 @@ describe("Bank", () => {
   test("Send", () => {
     const msg = new MsgSend(address, recipient, [coin])
     expect(readMsg(msg)).toBe(
-      "Send 1 Luna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
+      "Send 1000000uluna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
     )
   })
 
   test("Send multiple coins", () => {
     const msg = new MsgSend(address, recipient, coins)
     expect(readMsg(msg)).toBe(
-      "Send 1 KRT, 1 Luna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
+      "Send 1000000ukrw, 1000000uluna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
     )
   })
 })
@@ -38,7 +38,7 @@ describe("Bank", () => {
 describe("Market", () => {
   test("Swap", () => {
     const msg = new MsgSwap(address, coin, "uusd")
-    expect(readMsg(msg)).toBe("Swap 1 Luna to UST")
+    expect(readMsg(msg)).toBe("Swap 1000000uluna to uusd")
   })
 })
 
@@ -49,21 +49,21 @@ describe("Staking", () => {
   test("Delegate", () => {
     const msg = new MsgDelegate(address, validator, coin)
     expect(readMsg(msg)).toBe(
-      "Delegate 1 Luna to terravaloper1dcegyrekltswvyy0xy69ydgxn9x8x32zdy3ua5"
+      "Delegate 1000000uluna to terravaloper1dcegyrekltswvyy0xy69ydgxn9x8x32zdy3ua5"
     )
   })
 
   test("Undelegate", () => {
     const msg = new MsgUndelegate(address, validator, coin)
     expect(readMsg(msg)).toBe(
-      "Undelegate 1 Luna to terravaloper1dcegyrekltswvyy0xy69ydgxn9x8x32zdy3ua5"
+      "Undelegate 1000000uluna to terravaloper1dcegyrekltswvyy0xy69ydgxn9x8x32zdy3ua5"
     )
   })
 
   test("Redelegate", () => {
     const msg = new MsgBeginRedelegate(address, source, validator, coin)
     expect(readMsg(msg)).toBe(
-      "Redelegate 1 Luna from terravaloper1krj7amhhagjnyg2tkkuh6l0550y733jnjnnlzy to terravaloper1dcegyrekltswvyy0xy69ydgxn9x8x32zdy3ua5"
+      "Redelegate 1000000uluna from terravaloper1krj7amhhagjnyg2tkkuh6l0550y733jnjnnlzy to terravaloper1dcegyrekltswvyy0xy69ydgxn9x8x32zdy3ua5"
     )
   })
 
@@ -78,7 +78,7 @@ describe("Staking", () => {
 describe("Gov", () => {
   test("Deposit", () => {
     const msg = new MsgDeposit(123, address, [coin])
-    expect(readMsg(msg)).toBe("Deposit 1 Luna to proposal 123")
+    expect(readMsg(msg)).toBe("Deposit 1000000uluna to proposal 123")
   })
 
   test("Vote", () => {
@@ -95,6 +95,6 @@ test("Default", () => {
 test("Decimal", () => {
   const msg = new MsgSend(address, recipient, new Coins({ uluna: 1234560 }))
   expect(readMsg(msg)).toBe(
-    "Send 1.23456 Luna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
+    "Send 1234560uluna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
   )
 })
