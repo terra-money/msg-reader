@@ -1,5 +1,5 @@
 import { Msg, Vote } from "@terra-money/terra.js"
-import { formatCoin, formatDenom, formatCoins } from "./utility"
+import { formatCoin, formatCoins } from "./utility"
 
 export const readMsg = (msg: Msg) => {
   try {
@@ -13,7 +13,7 @@ export const readMsg = (msg: Msg) => {
 
       case "market/MsgSwap": {
         const { ask_denom, offer_coin } = data.value
-        return `Swap ${formatCoin(offer_coin)} to ${formatDenom(ask_denom)}`
+        return `Swap ${formatCoin(offer_coin)} to ${ask_denom}`
       }
 
       case "staking/MsgDelegate": {
