@@ -11,7 +11,7 @@ npm i @terra-money/msg-reader
 ```typescript
 
 import { Coins } from "@terra-money/terra.js"
-import { readMsg } from "@terra-money/msg-parser"
+import { readMsg } from "@terra-money/msg-reader"
 
 const coins = new Coins([new Coin("uluna", 1000000), new Coin("ukrw", 1000000)])
 
