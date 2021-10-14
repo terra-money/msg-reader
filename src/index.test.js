@@ -8,6 +8,7 @@ const {
   MsgDeposit,
   MsgVote,
   MsgMigrateCode,
+  MsgExecuteContract,
   Coin,
   Coins,
 } = require("@terra-money/terra.js")
@@ -30,7 +31,7 @@ describe("Bank", () => {
   test("Send multiple coins", () => {
     const msg = new MsgSend(address, recipient, coins)
     expect(readMsg(msg)).toBe(
-      "Send 1000000ukrw, 1000000uluna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
+      "Send 1000000ukrw,1000000uluna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
     )
   })
 })
@@ -84,6 +85,23 @@ describe("Gov", () => {
   test("Vote", () => {
     const msg = new MsgVote(123, address, 1)
     expect(readMsg(msg)).toBe("Vote YES on proposal 123")
+  })
+})
+
+describe("Wasm", () => {
+  const contract = "terra10llyp6v3j3her8u3ce66ragytu45kcmd9asj3u"
+  test("Execute contract with coins", () => {
+    const msg = new MsgExecuteContract(address, contract, { send: "" }, [coin])
+    expect(readMsg(msg)).toBe(
+      "Execute send on terra10llyp6v3j3her8u3ce66ragytu45kcmd9asj3u with 1000000uluna"
+    )
+  })
+
+  test("Execute contract without coins", () => {
+    const msg = new MsgExecuteContract(address, contract, { send: "" })
+    expect(readMsg(msg)).toBe(
+      "Execute send on terra10llyp6v3j3her8u3ce66ragytu45kcmd9asj3u"
+    )
   })
 })
 

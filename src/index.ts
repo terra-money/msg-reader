@@ -52,10 +52,11 @@ export const readMsg = (msg: Msg) => {
 
       case "wasm/MsgExecuteContract": {
         const { contract, execute_msg, coins } = data.value
-        const key = Object.keys(execute_msg)[0]
-        return `Execute ${key || "default"} on ${contract} ${
-          coins && `(-${formatCoins(coins)})`
-        }`
+        const [key] = Object.keys(execute_msg)
+        const payload = key ? ` ${key}` : ""
+        const suffix = coins.length ? ` with ${formatCoins(coins)}` : ""
+
+        return `Execute${payload} on ${contract}${suffix}`
       }
 
       default:
