@@ -4,13 +4,14 @@ const {
   MsgDelegate,
   MsgBeginRedelegate,
   MsgUndelegate,
-  MsgWithdrawDelegationReward,
+  MsgWithdrawDelegatorReward,
   MsgDeposit,
   MsgVote,
   MsgMigrateCode,
   MsgExecuteContract,
   Coin,
   Coins,
+  Vote,
 } = require("@terra-money/terra.js")
 const { readMsg } = require("./index")
 
@@ -69,7 +70,7 @@ describe("Staking", () => {
   })
 
   test("Withdraw rewards", () => {
-    const msg = new MsgWithdrawDelegationReward(address, validator)
+    const msg = new MsgWithdrawDelegatorReward(address, validator)
     expect(readMsg(msg)).toBe(
       "Withdraw rewards from terravaloper1dcegyrekltswvyy0xy69ydgxn9x8x32zdy3ua5"
     )
@@ -83,7 +84,7 @@ describe("Gov", () => {
   })
 
   test("Vote", () => {
-    const msg = new MsgVote(123, address, 1)
+    const msg = new MsgVote(123, address, Vote.Option.VOTE_OPTION_YES)
     expect(readMsg(msg)).toBe("Vote YES on proposal 123")
   })
 })

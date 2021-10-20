@@ -1,6 +1,6 @@
 {
   "name": "@terra-money/msg-reader",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Convert common terra.js msg to a sentence",
   "main": "dist/index.js",
   "author": "Terra <engineering@terra.money>",
@@ -16,7 +16,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@terra-money/terra.js": "^2.0.14"
+    "@terra-money/terra.js": "^2.1.17"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

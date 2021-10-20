@@ -5,53 +5,55 @@ export const readMsg = (msg: Msg) => {
   try {
     const data = msg.toData()
 
-    switch (data.type) {
-      case "bank/MsgSend": {
-        const { amount, to_address } = data.value
+    switch (data["@type"]) {
+      case "/cosmos.bank.v1beta1.MsgSend": {
+        const { amount, to_address } = data
         return `Send ${formatCoins(amount)} to ${to_address}`
       }
 
-      case "market/MsgSwap": {
-        const { ask_denom, offer_coin } = data.value
+      case "/terra.market.v1beta1.MsgSwap": {
+        const { ask_denom, offer_coin } = data
         return `Swap ${formatCoin(offer_coin)} to ${ask_denom}`
       }
 
-      case "staking/MsgDelegate": {
-        const { amount, validator_address } = data.value
+      case "/cosmos.staking.v1beta1.MsgDelegate": {
+        const { amount, validator_address } = data
         return `Delegate ${formatCoin(amount)} to ${validator_address}`
       }
 
-      case "staking/MsgBeginRedelegate": {
-        const { amount, validator_dst_address, validator_src_address } =
-          data.value
+      case "/cosmos.staking.v1beta1.MsgBeginRedelegate": {
+        const { amount, validator_dst_address, validator_src_address } = data
         return `Redelegate ${formatCoin(
           amount
         )} from ${validator_src_address} to ${validator_dst_address}`
       }
 
-      case "staking/MsgUndelegate": {
-        const { amount, validator_address } = data.value
+      case "/cosmos.staking.v1beta1.MsgUndelegate": {
+        const { amount, validator_address } = data
         return `Undelegate ${formatCoin(amount)} to ${validator_address}`
       }
 
-      case "distribution/MsgWithdrawDelegationReward": {
-        const { validator_address } = data.value
+      case "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward": {
+        const { validator_address } = data
         return `Withdraw rewards from ${validator_address}`
       }
 
-      case "gov/MsgDeposit": {
-        const { amount, proposal_id } = data.value
+      case "/cosmos.gov.v1beta1.MsgDeposit": {
+        const { amount, proposal_id } = data
         return `Deposit ${formatCoins(amount)} to proposal ${proposal_id}`
       }
 
-      case "gov/MsgVote": {
-        const { proposal_id, option } = data.value
+      case "/cosmos.gov.v1beta1.MsgVote": {
+        const { proposal_id, option } = data
         const voteOption = Vote.Option[option]
-        return `Vote ${voteOption} on proposal ${proposal_id}`
+        return `Vote ${voteOption.replace(
+          "VOTE_OPTION_",
+          ""
+        )} on proposal ${proposal_id}`
       }
 
-      case "wasm/MsgExecuteContract": {
-        const { contract, execute_msg, coins } = data.value
+      case "/terra.wasm.v1beta1.MsgExecuteContract": {
+        const { contract, execute_msg, coins } = data
         const [key] = Object.keys(execute_msg)
         const payload = key ? ` ${key}` : ""
         const suffix = coins.length ? ` with ${formatCoins(coins)}` : ""
