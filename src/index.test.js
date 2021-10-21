@@ -9,6 +9,7 @@ const {
   MsgVote,
   MsgMigrateCode,
   MsgExecuteContract,
+  MsgTransfer,
   Coin,
   Coins,
   Vote,
@@ -115,5 +116,20 @@ test("Decimal", () => {
   const msg = new MsgSend(address, recipient, new Coins({ uluna: 1234560 }))
   expect(readMsg(msg)).toBe(
     "Send 1234560uluna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp"
+  )
+})
+
+test("Transfer IBC token", () => {
+  const msg = new MsgTransfer(
+    "transfer",
+    "channel",
+    coin,
+    "terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp",
+    "terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp",
+    undefined,
+    1
+  )
+  expect(readMsg(msg)).toBe(
+    "Send 1000000uluna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp via channel"
   )
 })

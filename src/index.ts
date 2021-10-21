@@ -61,6 +61,12 @@ export const readMsg = (msg: Msg) => {
         return `Execute${payload} on ${contract}${suffix}`
       }
 
+      case "/ibc.applications.transfer.v1.MsgTransfer": {
+        const { receiver, token, source_channel } = data
+        const coin = token ? formatCoins([token]) : ""
+        return `Send ${coin} to ${receiver} via ${source_channel}`
+      }
+
       default:
         return ""
     }
