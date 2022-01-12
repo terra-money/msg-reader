@@ -1,11 +1,12 @@
 import { Msg, Vote } from "@terra-money/terra.js"
-import { formatCoin, formatCoins } from "./utility"
+import { defaultMessage, formatCoin, formatCoins } from "./utility"
 
 export const readMsg = (msg: Msg) => {
   try {
     const data = msg.toData()
+    const msgType = data["@type"]
 
-    switch (data["@type"]) {
+    switch (msgType) {
       case "/cosmos.bank.v1beta1.MsgSend": {
         const { amount, to_address } = data
         return `Send ${formatCoins(amount)} to ${to_address}`
@@ -60,6 +61,28 @@ export const readMsg = (msg: Msg) => {
 
         return `Execute${payload} on ${contract}${suffix}`
       }
+      case "/cosmos.gov.v1beta1.MsgSubmitProposal": {
+        const { content } = data
+        const type = content["@type"]
+
+        if (
+          type === "/cosmos.distribution.v1beta1.CommunityPoolSpendProposal"
+        ) {
+          return "Submit a community pool spend proposal"
+        } else if (type === "/cosmos.gov.v1beta1.TextProposal") {
+          return "Submit a text proposal"
+        } else if (type === "/cosmos.params.v1beta1.ParameterChangeProposal") {
+          return "Submit a parameter change proposal"
+        } else if (
+          type === "/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal"
+        ) {
+          return "Submit a cancel software upgrade proposal"
+        } else if (type === "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal") {
+          return "Submit a software upgrade proposal"
+        }
+
+        return defaultMessage(msgType)
+      }
 
       case "/ibc.applications.transfer.v1.MsgTransfer": {
         const { receiver, token, source_channel } = data
@@ -68,7 +91,7 @@ export const readMsg = (msg: Msg) => {
       }
 
       default:
-        return ""
+        return defaultMessage(msgType)
     }
   } catch {
     return ""

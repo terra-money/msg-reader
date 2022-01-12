@@ -1,4 +1,5 @@
 # @terra-money/msg-reader
+
 Convert common terra.js msg to a sentence
 
 ## Installation
@@ -8,8 +9,8 @@ npm i @terra-money/msg-reader
 ```
 
 ## Example codes
-```typescript
 
+```typescript
 import { Coins, Coin, MsgSend } from "@terra-money/terra.js"
 import { readMsg } from "@terra-money/msg-reader"
 
@@ -22,5 +23,4 @@ const msg = new MsgSend(address, recipient, [coin])
 
 console.log(readMsg(msg))
 // Send 1 Luna to terra17lmam6zguazs5q5u6z5mmx76uj63gldnse2pdp
-
 ```

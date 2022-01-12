@@ -13,7 +13,16 @@ const {
   Coin,
   Coins,
   Vote,
+  MsgSubmitProposal,
+  TextProposal,
+  CommunityPoolSpendProposal,
+  ParameterChangeProposal,
+  ParamChange,
 } = require("@terra-money/terra.js")
+const {
+  CancelSoftwareUpgradeProposal,
+  SoftwareUpgradeProposal,
+} = require("@terra-money/terra.js/dist/core/upgrade/proposals")
 const { readMsg } = require("./index")
 
 const coin = new Coin("uluna", 1000000)
@@ -78,6 +87,44 @@ describe("Staking", () => {
   })
 })
 
+describe("Proposal", () => {
+  test("Text", () => {
+    const test = new TextProposal("testTitle", "testDesc")
+    const msg = new MsgSubmitProposal(test, [coin], address)
+    expect(readMsg(msg)).toBe("Submit a text proposal")
+  })
+
+  test("CommunityPoolSpend", () => {
+    const test = new CommunityPoolSpendProposal(
+      "testTitle",
+      "testDesc",
+      address,
+      [coin]
+    )
+    const msg = new MsgSubmitProposal(test, [coin], address)
+    expect(readMsg(msg)).toBe("Submit a community pool spend proposal")
+  })
+
+  test("ParameterChange", () => {
+    const param = new ParamChange("sub", "key", "value")
+    const test = new ParameterChangeProposal("testTitle", "testDesc", param)
+    const msg = new MsgSubmitProposal(test, [coin], address)
+    expect(readMsg(msg)).toBe("Submit a parameter change proposal")
+  })
+
+  test("CancelSoftwareUpgrade", () => {
+    const test = new CancelSoftwareUpgradeProposal("testTitle", "testDesc")
+    const msg = new MsgSubmitProposal(test, [coin], address)
+    expect(readMsg(msg)).toBe("Submit a cancel software upgrade proposal")
+  })
+
+  test("SoftwareUpgrade", () => {
+    const test = new SoftwareUpgradeProposal("testTitle", "testDesc")
+    const msg = new MsgSubmitProposal(test, [coin], address)
+    expect(readMsg(msg)).toBe("Submit a software upgrade proposal")
+  })
+})
+
 describe("Gov", () => {
   test("Deposit", () => {
     const msg = new MsgDeposit(123, address, [coin])
@@ -109,7 +156,7 @@ describe("Wasm", () => {
 
 test("Default", () => {
   const msg = new MsgMigrateCode(address, 1, "codes")
-  expect(readMsg(msg)).toBe("")
+  expect(readMsg(msg)).toBe("Migrate code")
 })
 
 test("Decimal", () => {
